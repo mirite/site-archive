@@ -1,0 +1,12 @@
+{
+  "name": "back-in-time",
+  "version": "1.0.0",
+  "description": "Website visual diff versioning tool written in TS",
+  "main": "index.js",
+  "repository": "https://github.com/mirite/back-in-time.git",
+  "author": "Jesse Conner <jconner90@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "typescript": "^4.8.3"
+  }
+}
