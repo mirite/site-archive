@@ -2,6 +2,8 @@ import urlFinder from 'html-urls';
 import puppeteer from 'puppeteer';
 import {IPage, PageList} from "@types";
 import {log, setLogLevel} from "./logger.js";
+import Path from "path";
+import fs from 'fs';
 
 setLogLevel(1);
 const pageList: PageList = new Map<string, IPage>();
@@ -40,13 +42,24 @@ async function checkPage(page: IPage) {
 	}
 }
 
+function sanitizeFileName(s: string) {
+	return s.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+}
+
+const captureDir = Path.join('.', 'captures', sanitizeFileName(entryPoint.host), sanitizeFileName(new Date().toLocaleString()));
 const browser = await puppeteer.launch();
 const puppeteerPage = await browser.newPage();
+await fs.promises.mkdir(captureDir, {recursive: true});
+
+async function capturePage(url: string) {
+	const path = Path.join(captureDir, sanitizeFileName(url) + '.png')
+	await puppeteerPage.goto(url);
+	await puppeteerPage.screenshot({path});
+}
 
 for (const [url, page] of pageList) {
 	log(`Checking ${url}`, 2);
-	await puppeteerPage.goto(url);
-	await puppeteerPage.screenshot({path: encodeURIComponent(url) + '.png'});
+	await capturePage(url);
 	await checkPage(page);
 }
 await browser.close();
