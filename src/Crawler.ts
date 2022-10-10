@@ -25,8 +25,10 @@ export default class Crawler {
 		const screenShots = await ScreenShots.init(captureDir);
 		for (const [url, page] of pageList) {
 			log(`Checking ${url}`, 2);
-			await screenShots.capture(url);
-			await scraper.checkPage(page);
+			const loaded = await scraper.checkPage(page);
+			if (loaded === true) {
+				await screenShots.capture(url);
+			}
 		}
 		await screenShots.close();
 		return this.pageList;
