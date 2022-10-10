@@ -1,15 +1,15 @@
 import {IPage, PageList} from "@types";
 import Scraper from "./Scraper.js";
 import Path from "path";
-import {createDir, sanitizeFileName} from "./helpers/files.js";
-import ScreenShots from "./screenShots.js";
+import {bundle, createDir, sanitizeFileName} from "./helpers/files.js";
+import ScreenShots from "./ScreenShots.js";
 import {log} from "./logger.js";
 import fs from "fs";
 
 export default class Crawler {
 	private readonly pageList: PageList;
 	private readonly entryPoint: URL;
-	private captureDir: string;
+	private readonly captureDir: string;
 
 	public constructor(rawEntryPoint: string) {
 		this.pageList = new Map<string, IPage>();
@@ -29,20 +29,21 @@ export default class Crawler {
 			log(`Checking ${url}`, 2);
 			const loaded = await scraper.checkPage(page);
 			if (loaded === true) {
-				await screenShots.capture(url);
+				page.screenshots = await screenShots.capture(url);
 			}
-
+			this.writePage(page);
 			if (i % 50 === 0) {
 				this.writeList();
 			}
 		}
 		await screenShots.close();
 		this.writeList();
+		bundle(this.captureDir);
 		return this.pageList;
 	}
 
 	private writeList() {
-		fs.writeFileSync(Path.resolve(this.captureDir, "crawl.json"), JSON.stringify(Array.from(this.pageList)))
+		fs.writeFileSync(Path.resolve(this.captureDir, "crawl.json"), JSON.stringify(Array.from(this.pageList).map(a => a[0])));
 	}
 
 	private createSeed(): IPage {
@@ -50,6 +51,10 @@ export default class Crawler {
 			url: this.entryPoint,
 			foundOn: 'Entry Point',
 		}
+	}
+
+	private writePage(page: IPage) {
+		fs.writeFileSync(Path.resolve(this.captureDir, sanitizeFileName(page.url.href)), JSON.stringify(page));
 	}
 
 }

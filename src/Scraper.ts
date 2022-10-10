@@ -12,9 +12,10 @@ export default class Scraper {
 		const response = await fetch(url);
 		page.code = response.status;
 		page.visited = new Date();
-		const mimeType = response.headers.get('Content-Type');
-		if (!mimeType?.includes('text/html')) return mimeType;
+		page.mimeType = response.headers.get('Content-Type');
+		if (!page.mimeType?.includes('text/html')) return page.mimeType;
 		const html = await response.text();
+		page.content = html;
 		log(`Finding URLS`, 1)
 		const links = urlFinder({html, url});
 		for (const link of links) {

@@ -3,3 +3,5 @@ declare module 'html-urls' {
 
 	export = a;
 }
+
+declare module 'fstream';

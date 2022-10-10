@@ -7,8 +7,10 @@ interface ICaptureSettings {
 }
 
 export default class ScreenShots {
+	private readonly resolutions: [number, number][];
 
 	private constructor(private captureDir: string, private browser: Browser, private page: Page, private settings?: ICaptureSettings) {
+		this.resolutions = this.settings?.resolutions || [[1920, 1080]];
 	}
 
 	public static async init(captureDir: string, settings?: ICaptureSettings) {
@@ -18,9 +20,14 @@ export default class ScreenShots {
 	}
 
 	public async capture(url: string) {
-		const path = Path.join(this.captureDir, sanitizeFileName(url) + '.png');
 		await this.page.goto(url);
-		await this.page.screenshot({path});
+		const paths: string[] = [];
+		for (const [width, height] of this.resolutions) {
+			const path = Path.join(this.captureDir, sanitizeFileName(url) + `${width}x${height}.png`);
+			await this.page.setViewport({width, height});
+			await this.page.screenshot({path, fullPage: true});
+		}
+		return paths;
 	}
 
 	public async close() {
