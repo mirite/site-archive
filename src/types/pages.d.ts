@@ -1,11 +1,11 @@
-export type PageList = Map<string, IPage>;
+export type PageList = Map<string, Page>;
 
-export interface IPage {
+export type Page = {
 	content?: string;
 	screenshots?: string[];
-	mimeType?: string | null;
+	mimeType?: string;
 	url: URL;
 	code?: number;
 	foundOn: string;
 	visited?: Date;
-}
+};

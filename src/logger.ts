@@ -5,7 +5,7 @@ export function setLogFunction(func: (str: string) => unknown) {
 	logFunction = func;
 }
 
-export function log(message: string, level: number = 1) {
+export function log(message: string, level = 1) {
 	if (level >= logLevel) {
 		logFunction(message);
 	}
