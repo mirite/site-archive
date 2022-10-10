@@ -1,23 +1,25 @@
 {
-  "name": "back-in-time",
+  "name": "site-archive",
   "version": "1.0.0",
-  "description": "Website visual diff versioning tool written in TS",
+  "description": "Website capture tool written in TS using Puppeteer",
   "scripts": {
-    "start": "tsc && node ./dist/index.js"
+    "build": "tsc",
+    "release": "yarn run build && npm publish"
   },
+  "main": "Crawler.js",
   "type": "module",
   "types": "./src/types/index.d.ts",
   "repository": "https://github.com/mirite/back-in-time.git",
-  "author": "Jesse Conner <jconner90@gmail.com>",
+  "author": "Jesse Conner <me@jesseconner.ca>",
   "license": "MIT",
   "dependencies": {
-    "@types/tar": "^6.1.3",
     "html-urls": "^2.4.38",
     "puppeteer": "^17.1.3",
     "tar": "^6.1.11",
     "typescript": "^4.8.3"
   },
   "devDependencies": {
+    "@types/tar": "^6.1.3",
     "@types/node": "^18.7.18"
   },
   "engines": {

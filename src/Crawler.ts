@@ -3,7 +3,7 @@ import Scraper from "./Scraper.js";
 import Path from "path";
 import {bundle, createDir, sanitizeFileName} from "./helpers/files.js";
 import ScreenShots from "./ScreenShots.js";
-import {log} from "./logger.js";
+import {log, setLogFunction, setLogLevel} from "./logger.js";
 import fs from "fs";
 
 export default class Crawler {
@@ -11,11 +11,13 @@ export default class Crawler {
 	private readonly entryPoint: URL;
 	private readonly captureDir: string;
 
-	public constructor(rawEntryPoint: string) {
+	public constructor(rawEntryPoint: string, captureDir: string, logLevel: 1 | 2 | 3 = 1, onEvent: (msg: string) => unknown = console.log) {
 		this.pageList = new Map<string, IPage>();
 		this.entryPoint = new URL(rawEntryPoint);
 		this.pageList.set(rawEntryPoint, this.createSeed());
-		this.captureDir = Path.join('.', 'captures', sanitizeFileName(this.entryPoint.host), sanitizeFileName(new Date().toLocaleString()));
+		this.captureDir = Path.join(captureDir, sanitizeFileName(this.entryPoint.host), sanitizeFileName(new Date().toLocaleString()));
+		setLogLevel(logLevel);
+		setLogFunction(onEvent)
 	}
 
 	public async crawl() {
@@ -26,7 +28,7 @@ export default class Crawler {
 		const screenShots = await ScreenShots.init(captureDir);
 		let i = 0;
 		for (const [url, page] of pageList) {
-			log(`Checking ${url}`, 2);
+			log(`Checking ${url} (${i} of ${pageList.size})`, 2);
 			const loaded = await scraper.checkPage(page);
 			if (loaded === true) {
 				page.screenshots = await screenShots.capture(url);
