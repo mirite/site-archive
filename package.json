@@ -1,6 +1,6 @@
 {
   "name": "site-archive",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Website capture tool written in TS using Puppeteer",
   "scripts": {
     "build": "tsc",
