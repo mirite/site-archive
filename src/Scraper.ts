@@ -1,5 +1,5 @@
 import {IPage, PageList} from "@types";
-import {log} from "./logger";
+import {log} from "./logger.js";
 import urlFinder from "html-urls";
 
 export default class Scraper {

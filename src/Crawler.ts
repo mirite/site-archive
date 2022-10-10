@@ -1,9 +1,9 @@
 import {IPage, PageList} from "@types";
-import Scraper from "./Scraper";
+import Scraper from "./Scraper.js";
 import Path from "path";
-import {createDir, sanitizeFileName} from "./helpers/files";
-import ScreenShots from "./screenShots";
-import {log} from "./logger";
+import {createDir, sanitizeFileName} from "./helpers/files.js";
+import ScreenShots from "./screenShots.js";
+import {log} from "./logger.js";
 
 export default class Crawler {
 	private readonly pageList: PageList;

@@ -1,6 +1,6 @@
 import puppeteer, {Browser, Page} from "puppeteer";
 import Path from "path";
-import {sanitizeFileName} from "./helpers/files";
+import {sanitizeFileName} from "./helpers/files.js";
 
 interface ICaptureSettings {
 	resolutions?: [number, number][]

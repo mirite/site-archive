@@ -2,7 +2,6 @@
   "name": "back-in-time",
   "version": "1.0.0",
   "description": "Website visual diff versioning tool written in TS",
-  "main": "index.js",
   "scripts": {
     "start": "tsc && node ./dist/index.js"
   },

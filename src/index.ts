@@ -1,5 +1,5 @@
-import {setLogLevel} from "./logger";
-import Crawler from "./Crawler";
+import {setLogLevel} from "./logger.js";
+import Crawler from "./Crawler.js";
 
 setLogLevel(1);
 
