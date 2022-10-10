@@ -6,7 +6,7 @@
     "build": "tsc",
     "release": "yarn run build && npm publish"
   },
-  "main": "index.js",
+  "main": "dist/index.js",
   "type": "module",
   "types": "./src/types/index.d.ts",
   "repository": "https://github.com/mirite/site-archive.git",
