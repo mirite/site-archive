@@ -1,3 +1,3 @@
 import Crawler from 'Crawler.js';
-export * from './types';
+export type {Page, PageList} from './types';
 export default Crawler;
