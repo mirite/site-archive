@@ -26,7 +26,7 @@ export default class Crawler {
 		const scraper = new Scraper(pageList, entryPoint.host);
 		await createDir(captureDir);
 		const screenShots = await ScreenShots.init(captureDir);
-		const i = 0;
+		let i = 0;
 		for (const [url, page] of pageList) {
 			log(`Checking ${url} (${i} of ${pageList.size})`, 2);
 			const loaded = await scraper.checkPage(page);
@@ -35,7 +35,7 @@ export default class Crawler {
 			}
 
 			this.writePage(page);
-			if (i % 50 === 0) {
+			if (i++ % 50 === 0) {
 				this.writeList();
 			}
 		}
