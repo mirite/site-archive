@@ -12,12 +12,20 @@ export async function createDir(path: string) {
 }
 
 export function bundle(folder: string) {
+
 	log("Writing archive", 1);
-	tar.c(
-		{
-			gzip: true // this will perform the compression too
-		},
-		[folder]).pipe(fs.createWriteStream(path.resolve(folder, '..', folder + '.tar.gz'))); /* Give the output file name */
-	log("Clearing temp files", 1);
-	fs.rmdirSync(path.resolve(folder));
+	const tarOptions = {
+		gzip: true,
+		cwd: path.resolve(folder)
+	};
+
+	const cleanUp = () => {
+		log("Clearing temp files", 1);
+		fs.rmSync(folder, {recursive: true});
+	};
+
+	const fileList = fs.readdirSync(folder);
+	tar.c(tarOptions, fileList)
+		.pipe(fs.createWriteStream(path.resolve(folder + '.tar.gz')))
+		.on('finish', cleanUp);
 }
