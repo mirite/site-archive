@@ -6,10 +6,10 @@
     "build": "tsc",
     "release": "yarn run build && npm publish"
   },
-  "main": "Crawler.js",
+  "main": "./dist/Crawler.js",
   "type": "module",
   "types": "./src/types/index.d.ts",
-  "repository": "https://github.com/mirite/back-in-time.git",
+  "repository": "https://github.com/mirite/site-archive.git",
   "author": "Jesse Conner <me@jesseconner.ca>",
   "license": "MIT",
   "dependencies": {
