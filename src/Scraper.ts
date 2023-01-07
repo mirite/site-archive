@@ -29,12 +29,13 @@ export default class Scraper {
 	}
 
 	// eslint-disable-next-line @typescript-eslint/naming-convention
-	private getRelevantHTML(s: string) {
+	private getRelevantHTML(s: string): string {
 		if (!this.options.ignoreHead) {
 			return s;
 		}
 
-		return s.replace(/<head>.+?(?=<\/head>)/gs, '');
+		const bodyMatch = s.match(/<body.+/igs);
+		return bodyMatch?.at(0)?.replace('</html>', '') ?? '';
 	}
 
 	private processLink(link: {value: string; url: string | undefined; uri: string | undefined}, searchedURL: string) {
