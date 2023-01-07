@@ -38,7 +38,10 @@ export default class Crawler {
 				page.screenshots = await screenShots.capture(url);
 			}
 
-			this.writePage(page);
+			if (!this.options.screenshotsOnly) {
+				this.writePage(page);
+			}
+
 			if (i++ % 50 === 0) {
 				this.writeList();
 			}

@@ -17,7 +17,7 @@ export default class Scraper {
 			return page.mimeType;
 		}
 
-		const html = await response.text();
+		const html = this.getRelevantHTML(await response.text());
 		page.content = html;
 		log('Finding URLS', 1);
 		const links = urlFinder({html, url});
@@ -26,6 +26,15 @@ export default class Scraper {
 		}
 
 		return true;
+	}
+
+	// eslint-disable-next-line @typescript-eslint/naming-convention
+	private getRelevantHTML(s: string) {
+		if (!this.options.ignoreHead) {
+			return s;
+		}
+
+		return s.replace(/<head>.+?(?=<\/head>)/gs, '');
 	}
 
 	private processLink(link: {value: string; url: string | undefined; uri: string | undefined}, searchedURL: string) {
