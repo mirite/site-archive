@@ -1,9 +1,9 @@
-import type {Page, PageList} from '@types';
+import type {Page, PageList, ScraperOptions} from '@types';
 import {log} from './logger.js';
 import urlFinder from 'html-urls';
 
 export default class Scraper {
-	public constructor(private readonly pageList: PageList, private readonly hostname: string) {
+	public constructor(private readonly pageList: PageList, private readonly hostname: string, private readonly options: ScraperOptions) {
 	}
 
 	public async checkPage(page: Page) {
