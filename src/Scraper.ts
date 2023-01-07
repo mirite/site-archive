@@ -2,6 +2,7 @@ import type {Page, PageList, ScraperOptions} from '@types';
 import {log} from './logger.js';
 import urlFinder from 'html-urls';
 
+const allowedTypes = ['html', 'htm', 'xhtml', 'asp', 'aspx', 'shtml', 'dhtml', 'php', 'php5', 'jsp'];
 export default class Scraper {
 	public constructor(private readonly pageList: PageList, private readonly hostname: string, private readonly options: ScraperOptions) {
 	}
@@ -39,7 +40,7 @@ export default class Scraper {
 	}
 
 	private processLink(link: {value: string; url: string | undefined; uri: string | undefined}, searchedURL: string) {
-		if (!link.url || this.pageList.has(link.url)) {
+		if (!link.url || this.pageList.has(link.url) || this.shouldIgnore(link.url)) {
 			return;
 		}
 
@@ -53,6 +54,18 @@ export default class Scraper {
 			foundOn: searchedURL,
 		};
 		this.pageList.set(link.url, newItem);
+	}
+
+	private shouldIgnore(url: string): boolean {
+		if (!this.options.htmlOnly) {
+			return false;
+		}
+
+		const urlObj = new URL(url);
+		const {pathname} = urlObj;
+		const splitPath = pathname.split('.');
+		const extension = splitPath.at(-1);
+		return !extension || allowedTypes.includes(extension);
 	}
 }
 
