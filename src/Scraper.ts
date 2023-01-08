@@ -65,7 +65,7 @@ export default class Scraper {
 		const {pathname} = urlObj;
 		const splitPath = pathname.split('.');
 		const extension = splitPath.at(-1);
-		return !extension || allowedTypes.includes(extension);
+		return Boolean(splitPath.length > 1 && !allowedTypes.includes(extension!));
 	}
 }
 
