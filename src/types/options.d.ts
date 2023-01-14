@@ -9,10 +9,16 @@ export type SnapshotOptions = {
 export type ScraperOptions = {
 	ignoreHead?: boolean;
 	htmlOnly?: boolean;
+	htmlTypes?: string[];
+	ignoreAnchors?: boolean;
+	ignoreQueryString?: boolean;
+	redirect?: RequestRedirect;
 };
 
 export type ScreenshotOptions = {
 	screenshotSizes?: ScreenshotSize[];
+	selectorsToRemove?: string[];
+	timeout?: number;
 };
 
 type ConcreteOptions<T> = {

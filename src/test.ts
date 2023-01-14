@@ -8,6 +8,8 @@ const options: SnapshotOptions = {
 	onEvent: console.log,
 	ignoreHead: true,
 	htmlOnly: true,
+	ignoreAnchors: true,
+	ignoreQueryString: true,
 	screenshotSizes: [
 		{
 			width: 1920,
@@ -18,6 +20,11 @@ const options: SnapshotOptions = {
 			height: 800,
 		},
 	],
+	selectorsToRemove: [
+		'.rt-pop-announcement',
+		'#header-container',
+	],
+	redirect: 'error',
 };
 const crawler = new Crawler(entryPointRaw, path.resolve('.', 'captures'), options);
 await crawler.crawl();

@@ -35,7 +35,7 @@ export default class Crawler {
 			log(`Checking ${url} (${i} of ${pageList.size})`, 2);
 			const loaded = await scraper.checkPage(page);
 			if (loaded === true) {
-				page.screenshots = await screenShots.capture(url);
+				await screenShots.capture(url);
 			}
 
 			if (!this.options.screenshotsOnly) {
@@ -80,6 +80,12 @@ export default class Crawler {
 			htmlOnly: options.htmlOnly ?? false,
 			logLevel: options.logLevel ?? 2,
 			onEvent: options.onEvent ?? defaultOnEvent,
+			htmlTypes: options.htmlTypes ?? ['html', 'htm', 'xhtml', 'asp', 'aspx', 'shtml', 'dhtml', 'php', 'php5', 'jsp'],
+			ignoreQueryString: options.ignoreQueryString ?? false,
+			ignoreAnchors: options.ignoreAnchors ?? false,
+			selectorsToRemove: options.selectorsToRemove ?? [],
+			timeout: options.timeout ?? 30000,
+			redirect: 'follow',
 		};
 	}
 }
