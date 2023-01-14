@@ -4,7 +4,7 @@ import {type SnapshotOptions} from '@types';
 
 const entryPointRaw = process.argv[2];
 const options: SnapshotOptions = {
-	logLevel: 1,
+	logLevel: 2,
 	onEvent: console.log,
 	ignoreHead: true,
 	htmlOnly: true,

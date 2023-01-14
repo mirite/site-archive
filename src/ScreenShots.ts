@@ -11,7 +11,7 @@ export default class ScreenShots {
 		const puppeteerPage = await browser.newPage();
 		puppeteerPage.setDefaultTimeout(settings.timeout);
 		puppeteerPage.on('console', msg => {
-			log(`Page: ${msg.text()} ${msg.location().url ?? ''}`);
+			log(`Page: ${msg.text()} ${msg.location().url ?? ''}`, 1);
 		});
 		return new ScreenShots(captureDir, browser, puppeteerPage, settings);
 	}
@@ -82,8 +82,7 @@ export default class ScreenShots {
 				image.addEventListener('load', resolve);
 				image.addEventListener('error', reject);
 				setTimeout(() => {
-					console.log(`Image ${image.src} timed out load.`);
-					reject();
+					reject(new Error(`Image ${image.src} timed out load.`));
 				}, 60000);
 			});
 		}));
