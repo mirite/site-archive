@@ -8,10 +8,10 @@
     "test": "yarn build && node ./dist/test.js https://rootree.ca"
   },
   "main": "dist/index.js",
-  "type": "module",
   "repository": "https://github.com/mirite/site-archive.git",
   "author": "Jesse Conner <me@jesseconner.ca>",
   "license": "MIT",
+  "type": "module",
   "dependencies": {
     "html-urls": "^2.4.40",
     "jsdom": "^21.0.0",
