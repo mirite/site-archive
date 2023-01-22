@@ -15,15 +15,17 @@ specifiers:
   re2: ^1.18.0
   tar: ^6.1.13
   typescript: '>=4.9.4'
+  utf-8-validate: ^6.0.1
 
 dependencies:
-  html-urls: 2.4.41
-  jsdom: 21.0.0
+  html-urls: 2.4.41_utf-8-validate@6.0.1
+  jsdom: 21.0.0_utf-8-validate@6.0.1
   node-gyp-install: 2.2.0
-  puppeteer: 19.5.2
+  puppeteer: 19.5.2_utf-8-validate@6.0.1
   re2: 1.18.0
   tar: 6.1.13
   typescript: 4.9.4
+  utf-8-validate: 6.0.1
 
 devDependencies:
   '@types/node': 18.11.18
@@ -98,7 +100,7 @@ packages:
     resolution: {integrity: sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==}
     dev: true
 
-  /@metascraper/helpers/5.33.4:
+  /@metascraper/helpers/5.33.4_utf-8-validate@6.0.1:
     resolution: {integrity: sha512-K3B3biGfhw262URUulEep+nzho85T1YVzE8L5IeX52RcuypRIvccyvPB19ShIHEAPZRh/cJPHATg+eNG9Ufi7A==}
     engines: {node: '>= 12'}
     dependencies:
@@ -113,7 +115,7 @@ packages:
       is-uri: 1.2.4
       iso-639-3: 2.2.0
       isostring: 0.0.1
-      jsdom: 21.0.0
+      jsdom: 21.0.0_utf-8-validate@6.0.1
       lodash: 4.17.21
       memoize-one: 6.0.0
       microsoft-capitalize: 1.0.5
@@ -1284,11 +1286,11 @@ packages:
       whatwg-encoding: 2.0.0
     dev: false
 
-  /html-urls/2.4.41:
+  /html-urls/2.4.41_utf-8-validate@6.0.1:
     resolution: {integrity: sha512-fYNujiJdIlf8Bv6oEQIsv9XKPP8dU9ANjkgcFXhr42c0KouwB1byi3i7dnXsZ2q6r83CXFhiFX0FnTilwOjVNA==}
     engines: {node: '>= 6'}
     dependencies:
-      '@metascraper/helpers': 5.33.4
+      '@metascraper/helpers': 5.33.4_utf-8-validate@6.0.1
       cheerio: 1.0.0-rc.12
       is-uri: 1.2.4
       is-url-http: 2.3.2
@@ -1504,7 +1506,7 @@ packages:
     dependencies:
       argparse: 2.0.1
 
-  /jsdom/21.0.0:
+  /jsdom/21.0.0_utf-8-validate@6.0.1:
     resolution: {integrity: sha512-AIw+3ZakSUtDYvhwPwWHiZsUi3zHugpMEKlNPaurviseYoBqo0zBd3zqoUi3LPCNtPFlEP8FiW9MqCZdjb2IYA==}
     engines: {node: '>=14'}
     peerDependencies:
@@ -1537,7 +1539,7 @@ packages:
       whatwg-encoding: 2.0.0
       whatwg-mimetype: 3.0.0
       whatwg-url: 11.0.0
-      ws: 8.12.0
+      ws: 8.12.0_utf-8-validate@6.0.1
       xml-name-validator: 4.0.0
     transitivePeerDependencies:
       - bufferutil
@@ -1827,6 +1829,11 @@ packages:
       whatwg-url: 5.0.0
     dev: false
 
+  /node-gyp-build/4.6.0:
+    resolution: {integrity: sha512-NTZVKn9IylLwUzaKjkas1e4u2DLNcV4rdYagA4PWdPwW87Bi7z+BznyKSRwS/761tV/lzCGXplWsiaMjLqP2zQ==}
+    hasBin: true
+    dev: false
+
   /node-gyp-install/2.2.0:
     resolution: {integrity: sha512-zKCo1AmnptRLJgtDjnFdu/tHQ1tnX86yLhl00zHzHkZAbLITVXIN7isHYyG+HDrHdbW99Y25MeqjX0DqSaVuBg==}
     hasBin: true
@@ -2081,7 +2088,7 @@ packages:
     engines: {node: '>=0.10'}
     dev: false
 
-  /puppeteer-core/19.5.2:
+  /puppeteer-core/19.5.2_utf-8-validate@6.0.1:
     resolution: {integrity: sha512-Rqk+3kqM+Z2deooTYqcYt8lRtGffJdifWa9td9nbJSjhANWsFouk8kLBNUKycewCCFHM8TZUKS0x28OllavW2A==}
     engines: {node: '>=14.1.0'}
     dependencies:
@@ -2094,7 +2101,7 @@ packages:
       rimraf: 3.0.2
       tar-fs: 2.1.1
       unbzip2-stream: 1.4.3
-      ws: 8.11.0
+      ws: 8.11.0_utf-8-validate@6.0.1
     transitivePeerDependencies:
       - bufferutil
       - encoding
@@ -2102,7 +2109,7 @@ packages:
       - utf-8-validate
     dev: false
 
-  /puppeteer/19.5.2:
+  /puppeteer/19.5.2_utf-8-validate@6.0.1:
     resolution: {integrity: sha512-xlqRyrhXhVH114l79Y0XqYXUVG+Yfw4sKlvN55t8Y9DxtA5fzI1uqF8SVXbWK5DUMbD6Jo4lpixTZCTTZGD05g==}
     engines: {node: '>=14.1.0'}
     requiresBuild: true
@@ -2111,7 +2118,7 @@ packages:
       https-proxy-agent: 5.0.1
       progress: 2.0.3
       proxy-from-env: 1.1.0
-      puppeteer-core: 19.5.2
+      puppeteer-core: 19.5.2_utf-8-validate@6.0.1
     transitivePeerDependencies:
       - bufferutil
       - encoding
@@ -2581,6 +2588,14 @@ packages:
       tlds: 1.236.0
     dev: false
 
+  /utf-8-validate/6.0.1:
+    resolution: {integrity: sha512-gAZEa1DMXeBiHEwxef81kLtZjBrC1hib7UWnsvMVtxY8oJGtDSXt9McWu2D6V/xgrjbfRBsS5UIGEUBg2SrAsg==}
+    engines: {node: '>=6.14.2'}
+    requiresBuild: true
+    dependencies:
+      node-gyp-build: 4.6.0
+    dev: false
+
   /util-deprecate/1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
     dev: false
@@ -2653,7 +2668,7 @@ packages:
   /wrappy/1.0.2:
     resolution: {integrity: sha512-l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==}
 
-  /ws/8.11.0:
+  /ws/8.11.0_utf-8-validate@6.0.1:
     resolution: {integrity: sha512-HPG3wQd9sNQoT9xHyNCXoDUa+Xw/VevmY9FoHyQ+g+rrMn4j6FB4np7Z0OhdTgjx6MgQLK7jwSy1YecU1+4Asg==}
     engines: {node: '>=10.0.0'}
     peerDependencies:
@@ -2664,9 +2679,11 @@ packages:
         optional: true
       utf-8-validate:
         optional: true
+    dependencies:
+      utf-8-validate: 6.0.1
     dev: false
 
-  /ws/8.12.0:
+  /ws/8.12.0_utf-8-validate@6.0.1:
     resolution: {integrity: sha512-kU62emKIdKVeEIOIKVegvqpXMSTAMLJozpHZaJNDYqBjzlSYXQGviYwN1osDLJ9av68qHd4a2oSjd7yD4pacig==}
     engines: {node: '>=10.0.0'}
     peerDependencies:
@@ -2677,6 +2694,8 @@ packages:
         optional: true
       utf-8-validate:
         optional: true
+    dependencies:
+      utf-8-validate: 6.0.1
     dev: false
 
   /xml-name-validator/4.0.0:
