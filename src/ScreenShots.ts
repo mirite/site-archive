@@ -48,7 +48,8 @@ export default class ScreenShots {
 	private async evaluate(url: string) {
 		try {
 			log(`Evaluating code on ${url}`, 1);
-			await this.page.evaluate(this.evaluateOnPage, this.settings.selectorsToRemove);
+			const mutableSelectors = [...this.settings.selectorsToRemove];
+			await this.page.evaluate(this.evaluateOnPage, mutableSelectors);
 		} catch (e) {
 			logError(`evaluating code on ${url}`, e);
 		}

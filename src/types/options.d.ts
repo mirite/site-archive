@@ -9,15 +9,15 @@ export type SnapshotOptions = {
 export type ScraperOptions = {
 	ignoreHead?: boolean;
 	htmlOnly?: boolean;
-	htmlTypes?: string[];
+	htmlTypes?: readonly string[];
 	ignoreAnchors?: boolean;
 	ignoreQueryString?: boolean;
 	redirect?: RequestRedirect;
 };
 
 export type ScreenshotOptions = {
-	screenshotSizes?: ScreenshotSize[];
-	selectorsToRemove?: string[];
+	screenshotSizes?: readonly ScreenshotSize[];
+	selectorsToRemove?: readonly string[];
 	timeout?: number;
 };
 
@@ -28,4 +28,8 @@ type ConcreteOptions<T> = {
 export type ScreenshotSize = {
 	width: number;
 	height: number;
+};
+
+type ReadonlyOptions<T> = {
+	readonly [Property in keyof T]-?: T[Property];
 };

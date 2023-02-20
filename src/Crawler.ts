@@ -5,6 +5,7 @@ import {bundle, createDir, sanitizeFileName} from './helpers/files.js';
 import ScreenShots from './ScreenShots.js';
 import {log, setLogFunction, setLogLevel} from './logger.js';
 import fs from 'fs';
+import {defaultOptions} from './index';
 
 export default class Crawler {
 	private readonly pageList: PageList;
@@ -69,23 +70,13 @@ export default class Crawler {
 	}
 
 	private mergeOptions(options: SnapshotOptions): ConcreteOptions<SnapshotOptions> {
-		const defaultOnEvent = (msg: string) => {
-			console.log(msg);
-		};
+		const concreteOptions: Partial<ConcreteOptions<SnapshotOptions>> = {};
+		for (const [key, value] of Object.entries(defaultOptions)) {
+			const safeKey = key as keyof SnapshotOptions;
+			// @ts-expect-error Because I still need to validate incoming options.
+			concreteOptions[safeKey] = (typeof options[safeKey] === typeof value && options[safeKey]) ?? value;
+		}
 
-		return {
-			ignoreHead: options.ignoreHead ?? false,
-			screenshotsOnly: options.screenshotsOnly ?? false,
-			screenshotSizes: options.screenshotSizes ?? [],
-			htmlOnly: options.htmlOnly ?? false,
-			logLevel: options.logLevel ?? 2,
-			onEvent: options.onEvent ?? defaultOnEvent,
-			htmlTypes: options.htmlTypes ?? ['html', 'htm', 'xhtml', 'asp', 'aspx', 'shtml', 'dhtml', 'php', 'php5', 'jsp'],
-			ignoreQueryString: options.ignoreQueryString ?? false,
-			ignoreAnchors: options.ignoreAnchors ?? false,
-			selectorsToRemove: options.selectorsToRemove ?? [],
-			timeout: options.timeout ?? 30000,
-			redirect: 'follow',
-		};
+		return concreteOptions as ConcreteOptions<SnapshotOptions>;
 	}
 }
