@@ -5,7 +5,7 @@ import {bundle, createDir, sanitizeFileName} from './helpers/files.js';
 import ScreenShots from './ScreenShots.js';
 import {log, setLogFunction, setLogLevel} from './logger.js';
 import fs from 'fs';
-import {defaultOptions} from './index';
+import {defaultOptions} from './defaultOptions';
 
 export default class Crawler {
 	private readonly pageList: PageList;
