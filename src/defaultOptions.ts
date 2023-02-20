@@ -1,5 +1,4 @@
-import type {ConcreteOptions, ReadonlyOptions, SnapshotOptions} from '@types';
-import * as console from 'console';
+import type {ReadonlyOptions, SnapshotOptions} from '@types';
 
 export const htmlTypes = ['html', 'htm', 'xhtml', 'asp', 'aspx', 'shtml', 'dhtml', 'php', 'php5', 'jsp'] as const;
 export const defaultOptions: ReadonlyOptions<SnapshotOptions> = {
