@@ -74,7 +74,7 @@ export default class ScreenShots {
 		const images = document.getElementsByTagName('img');
 		console.log(`Waiting for ${images.length} images`);
 		// Wait for all remaining lazy loading images to load
-		await Promise.all(Array.from(images, image => {
+		await Promise.all(Array.from(images, async image => {
 			if (image.complete) {
 				return;
 			}
