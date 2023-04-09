@@ -5,7 +5,8 @@
   "scripts": {
     "build": "tsc",
     "lint": "eslint ./src/**/* --fix",
-    "test": "yarn build && node ./dist/test.js https://rtpreview.rootree.ca"
+    "test": "yarn build && node ./dist/test.js https://rtpreview.rootree.ca",
+	"release": "yarn build && yarn npm publish"
   },
   "main": "dist/index.js",
   "repository": "https://github.com/mirite/site-archive.git",
