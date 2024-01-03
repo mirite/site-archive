@@ -86,14 +86,6 @@ export default class Crawler {
   private mergeOptions(
     options: SnapshotOptions,
   ): ConcreteOptions<SnapshotOptions> {
-    const concreteOptions: Partial<ConcreteOptions<SnapshotOptions>> = {};
-    for (const [key, value] of Object.entries(defaultOptions)) {
-      const safeKey = key as keyof SnapshotOptions;
-      // @ts-expect-error Because I still need to validate incoming options.
-      concreteOptions[safeKey] =
-        (typeof options[safeKey] === typeof value && options[safeKey]) ?? value;
-    }
-
-    return concreteOptions as ConcreteOptions<SnapshotOptions>;
+    return {...defaultOptions, ...options};
   }
 }
