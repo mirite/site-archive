@@ -10,7 +10,9 @@ export default class ScreenShots {
     captureDir: string,
     settings: ConcreteOptions<ScreenshotOptions>,
   ) {
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({
+      headless: 'new'
+    });
     const puppeteerPage = await browser.newPage();
     puppeteerPage.setDefaultTimeout(settings.timeout);
     puppeteerPage.on("console", (msg) => {

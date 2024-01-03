@@ -21,7 +21,7 @@ export type ScreenshotOptions = {
   timeout?: number;
 };
 
-type ConcreteOptions<T> = {
+export type ConcreteOptions<T> = {
   [Property in keyof T]-?: T[Property];
 };
 
@@ -30,6 +30,6 @@ export type ScreenshotSize = {
   height: number;
 };
 
-type ReadonlyOptions<T> = {
+export type ReadonlyOptions<T> = {
   readonly [Property in keyof T]-?: T[Property];
 };

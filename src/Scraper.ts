@@ -91,7 +91,7 @@ export default class Scraper {
     const splitPath = pathname.split(".");
     const extension = splitPath.at(-1);
     return Boolean(
-      splitPath.length > 1 && !this.options.htmlTypes.includes(extension!),
+      splitPath.length > 1 && !this.options.htmlTypes.includes(extension || ""),
     );
   }
 }
