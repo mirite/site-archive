@@ -1,11 +1,12 @@
 {
   "name": "site-archive",
-  "version": "2.1.25",
+  "version": "2.1.26",
   "description": "Website capture tool written in TS using Puppeteer",
   "scripts": {
     "build": "tsc",
     "lint": "eslint ./src/**/* --fix",
-    "test": "yarn build && node ./dist/test.js https://rtpreview.rootree.ca",
+    "format": "prettier --write ./src/**/*",
+    "test": "yarn build && node ./dist/test.js https://rootree.ca",
     "release": "yarn build && yarn npm publish"
   },
   "main": "dist/index.js",
@@ -14,24 +15,25 @@
   "license": "MIT",
   "type": "module",
   "dependencies": {
-    "bufferutil": "^4.0.7",
-    "html-urls": "^2.4.42",
-    "jsdom": "^21.1.1",
+    "bufferutil": "^4.0.8",
+    "html-urls": "^2.4.55",
+    "jsdom": "^23.0.1",
     "node-gyp-install": "^2.2.0",
-    "puppeteer": "^19.10.1",
-    "re2": "^1.18.0",
-    "tar": "^6.1.13",
-    "typescript": "^5.0.4",
+    "puppeteer": "^21.6.1",
+    "re2": "^1.20.9",
+    "tar": "^6.2.0",
+    "typescript": "^5.3.3",
     "utf-8-validate": "^6.0.3"
   },
   "devDependencies": {
-    "@types/node": "^18.15.13",
-    "@types/tar": "^6.1.4",
-    "@typescript-eslint/eslint-plugin": "^5.59.0",
-    "@typescript-eslint/parser": "^5.59.0",
-    "eslint": "^8.39.0",
+    "@types/node": "^20.10.6",
+    "@types/tar": "^6.1.10",
+    "@typescript-eslint/eslint-plugin": "^6.17.0",
+    "@typescript-eslint/parser": "^6.17.0",
+    "eslint": "^8.56.0",
     "eslint-config-xo": "^0.43.1",
-    "eslint-config-xo-typescript": "^0.57.0"
+    "eslint-config-xo-typescript": "^1.0.1",
+    "prettier": "^3.1.1"
   },
   "engines": {
     "node": ">=18.0.0"
@@ -39,5 +41,5 @@
   "files": [
     "dist/**/*"
   ],
-  "packageManager": "yarn@3.5.0"
+  "packageManager": "yarn@4.0.2"
 }
