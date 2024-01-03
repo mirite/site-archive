@@ -1,6 +1,6 @@
 {
   "name": "site-archive",
-  "version": "2.1.26",
+  "version": "2.1.27",
   "description": "Website capture tool written in TS using Puppeteer",
   "scripts": {
     "build": "tsc",
@@ -10,7 +10,10 @@
     "release": "yarn build && yarn npm publish"
   },
   "main": "dist/index.js",
-  "repository": "https://github.com/mirite/site-archive.git",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mirite/site-archive.git"
+  },
   "author": "Jesse Conner <me@jesseconner.ca>",
   "license": "MIT",
   "type": "module",
