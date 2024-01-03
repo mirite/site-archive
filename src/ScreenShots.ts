@@ -9,6 +9,7 @@ export default class ScreenShots {
   public static async init(
     captureDir: string,
     settings: ConcreteOptions<ScreenshotOptions>,
+    requestedFiles: Map<string, string[]>
   ) {
     const browser = await puppeteer.launch({
       headless: 'new'
@@ -18,7 +19,11 @@ export default class ScreenShots {
     puppeteerPage.on("console", (msg) => {
       log(`Page: ${msg.text()} ${msg.location().url ?? ""}`, 1);
     });
-    return new ScreenShots(captureDir, browser, puppeteerPage, settings);
+
+    puppeteerPage.on('request', request => {
+        log(`Media request: ${request.url()}`);
+    });
+    return new ScreenShots(captureDir, browser, puppeteerPage, settings, requestedFiles);
   }
 
   private constructor(
@@ -26,6 +31,7 @@ export default class ScreenShots {
     private readonly browser: Browser,
     private readonly page: Page,
     private readonly settings: ConcreteOptions<ScreenshotOptions>,
+    private readonly requestedFiles: Map<string, string[]>,
   ) {}
 
   public async capture(url: string) {
@@ -34,6 +40,7 @@ export default class ScreenShots {
       await this.page.goto(url, { waitUntil: "networkidle2" });
       await this.evaluate(url);
       await this.takeScreenShots(url);
+
     } catch (e: unknown) {
       logError(`navigating to for capture ${url}`, e);
     }
@@ -87,6 +94,7 @@ export default class ScreenShots {
     // Wait for all remaining lazy loading images to load
     await Promise.all(
       Array.from(images, async (image) => {
+        image.loading = "eager";
         if (image.complete) {
           return;
         }
