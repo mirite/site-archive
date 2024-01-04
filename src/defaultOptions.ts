@@ -1,4 +1,4 @@
-import type { ReadonlyOptions, SnapshotOptions } from "@types";
+import type { ReadonlyOptions, SnapshotOptions } from "./types/index.js";
 
 export const htmlTypes = [
   "html",

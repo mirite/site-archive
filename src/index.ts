@@ -7,5 +7,5 @@ export type {
   ScraperOptions,
   ConcreteOptions,
   ScreenshotSize,
-} from "@types";
+} from "./types/index.js";
 export default Crawler;

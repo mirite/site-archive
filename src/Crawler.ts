@@ -1,4 +1,4 @@
-import type { ConcreteOptions, Page, PageList, SnapshotOptions } from "@types";
+import type { ConcreteOptions, Page, PageList, SnapshotOptions } from "./types/index.js";
 import Scraper from "./Scraper.js";
 import Path from "path";
 import { bundle, createDir, sanitizeFileName } from "./helpers/files.js";
@@ -53,11 +53,13 @@ export default class Crawler {
 
       if (i++ % 50 === 0) {
         this.writeList();
+        this.writeAssetLog(screenShots.getRequestedFiles());
       }
     }
 
     await screenShots.close();
     this.writeList();
+    this.writeAssetLog(screenShots.getRequestedFiles());
     bundle(this.captureDir);
     return this.pageList;
   }
@@ -66,6 +68,13 @@ export default class Crawler {
     fs.writeFileSync(
       Path.resolve(this.captureDir, "crawl.json"),
       JSON.stringify(Array.from(this.pageList).map((a) => a[0])),
+    );
+  }
+
+  private writeAssetLog(requestedFiles: Map<string, string[]>) {
+    fs.writeFileSync(
+      Path.resolve(this.captureDir, "assetLog.json"),
+      JSON.stringify(Array.from(requestedFiles)),
     );
   }
 
@@ -86,6 +95,6 @@ export default class Crawler {
   private mergeOptions(
     options: SnapshotOptions,
   ): ConcreteOptions<SnapshotOptions> {
-    return {...defaultOptions, ...options};
+    return { ...defaultOptions, ...options };
   }
 }

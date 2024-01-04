@@ -2,28 +2,21 @@ import type { Browser, Page } from "puppeteer";
 import puppeteer from "puppeteer";
 import Path from "path";
 import { sanitizeFileName } from "./helpers/files.js";
-import { type ConcreteOptions, type ScreenshotOptions } from "@types";
+import { type ConcreteOptions, type ScreenshotOptions } from "./types/index.js";
 import { log, logError } from "./logger.js";
 
 export default class ScreenShots {
+  private readonly requestedFiles: Map<string, string[]>;
   public static async init(
     captureDir: string,
     settings: ConcreteOptions<ScreenshotOptions>,
-    requestedFiles: Map<string, string[]>
   ) {
     const browser = await puppeteer.launch({
-      headless: 'new'
+      headless: "new",
     });
     const puppeteerPage = await browser.newPage();
-    puppeteerPage.setDefaultTimeout(settings.timeout);
-    puppeteerPage.on("console", (msg) => {
-      log(`Page: ${msg.text()} ${msg.location().url ?? ""}`, 1);
-    });
 
-    puppeteerPage.on('request', request => {
-        log(`Media request: ${request.url()}`);
-    });
-    return new ScreenShots(captureDir, browser, puppeteerPage, settings, requestedFiles);
+    return new ScreenShots(captureDir, browser, puppeteerPage, settings);
   }
 
   private constructor(
@@ -31,8 +24,23 @@ export default class ScreenShots {
     private readonly browser: Browser,
     private readonly page: Page,
     private readonly settings: ConcreteOptions<ScreenshotOptions>,
-    private readonly requestedFiles: Map<string, string[]>,
-  ) {}
+  ) {
+    this.requestedFiles = new Map<string, string[]>();
+    this.page.setDefaultTimeout(settings.timeout);
+    this.page.on("console", (msg) => {
+      log(`Page: ${msg.text()} ${msg.location().url ?? ""}`, 1);
+    });
+
+    this.page.on("request", (request) => {
+      log(`Media request: ${request.url()}`);
+      const url = request.url();
+      if (this.requestedFiles.has(url)) {
+        this.requestedFiles.get(url)?.push(this.page.url());
+      } else {
+        this.requestedFiles.set(url, [this.page.url()]);
+      }
+    });
+  }
 
   public async capture(url: string) {
     try {
@@ -40,10 +48,13 @@ export default class ScreenShots {
       await this.page.goto(url, { waitUntil: "networkidle2" });
       await this.evaluate(url);
       await this.takeScreenShots(url);
-
     } catch (e: unknown) {
       logError(`navigating to for capture ${url}`, e);
     }
+  }
+
+  public getRequestedFiles() {
+    return this.requestedFiles;
   }
 
   public async close() {
@@ -83,7 +94,7 @@ export default class ScreenShots {
     // Scroll down to bottom of page to activate lazy loading images
     document.body.scrollIntoView(false);
     for (const selector of selectorsToHide) {
-      const elements = document.querySelectorAll(selector);
+      const elements = Array.from(document.querySelectorAll(selector));
       for (const element of elements) {
         (element as HTMLElement).parentElement?.removeChild(element);
       }
