@@ -1,4 +1,9 @@
-import type { ConcreteOptions, Page, PageList, SnapshotOptions } from "./types/index.js";
+import type {
+  ConcreteOptions,
+  Page,
+  PageList,
+  SnapshotOptions,
+} from "./types/index.js";
 import Scraper from "./Scraper.js";
 import Path from "path";
 import { bundle, createDir, sanitizeFileName } from "./helpers/files.js";

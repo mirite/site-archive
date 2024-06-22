@@ -25,9 +25,9 @@ import { type SnapshotOptions } from "./types/index.js";
     redirect: "error",
   };
   const crawler = new Crawler(
-      entryPointRaw,
-      path.resolve(".", "captures"),
-      options,
+    entryPointRaw,
+    path.resolve(".", "captures"),
+    options,
   );
   await crawler.crawl();
 })();

@@ -1,7 +1,11 @@
-import type { ConcreteOptions, Page, PageList, ScraperOptions } from "./types/index.js";
+import type {
+  ConcreteOptions,
+  Page,
+  PageList,
+  ScraperOptions,
+} from "./types/index.js";
 import { log, logError } from "./logger.js";
 import urlFinder from "html-urls";
-
 
 export default class Scraper {
   public constructor(
