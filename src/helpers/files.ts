@@ -1,6 +1,6 @@
 import fs from "fs";
 import { log } from "../logger.js";
-import tar from "tar";
+import * as tar from "tar";
 import path from "path";
 
 export function sanitizeFileName(s: string) {

@@ -12,7 +12,7 @@ export default class ScreenShots {
     settings: ConcreteOptions<ScreenshotOptions>,
   ) {
     const browser = await puppeteer.launch({
-      headless: "new",
+      headless: true,
     });
     const puppeteerPage = await browser.newPage();
 
