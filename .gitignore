@@ -5,3 +5,4 @@ captures
 .pnp.*
 .eslintcache
 *.log
+.DS_STORE
