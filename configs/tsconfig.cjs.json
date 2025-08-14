@@ -1,9 +1,8 @@
 {
 	"extends": "./tsconfig.base.json",
 	"compilerOptions": {
-		"lib": ["ES6", "DOM"],
-		"target": "ES2022",
 		"module": "CommonJS",
+		"verbatimModuleSyntax": false,
 		"moduleResolution": "Node",
 		"outDir": "../dist/cjs",
 		"declarationDir": "../dist/cjs/types"
