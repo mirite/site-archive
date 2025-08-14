@@ -1,16 +1,16 @@
-export type SnapshotOptions = {
-	screenshotsOnly?: boolean;
+export type ConcreteOptions<T> = {
+	[Property in keyof T]-?: T[Property];
+};
 
-	logLevel?: 1 | 2 | 3;
-	onEvent?: (msg: string) => void | Promise<void>;
-} & ScraperOptions &
-	ScreenshotOptions;
+export type ReadonlyOptions<T> = {
+	readonly [Property in keyof T]-?: T[Property];
+};
 
 export type ScraperOptions = {
-	ignoreHead?: boolean;
 	htmlOnly?: boolean;
 	htmlTypes?: readonly string[];
 	ignoreAnchors?: boolean;
+	ignoreHead?: boolean;
 	ignoreQueryString?: boolean;
 	redirect?: RequestRedirect;
 };
@@ -21,15 +21,15 @@ export type ScreenshotOptions = {
 	timeout?: number;
 };
 
-export type ConcreteOptions<T> = {
-	[Property in keyof T]-?: T[Property];
-};
-
 export type ScreenshotSize = {
-	width: number;
 	height: number;
+	width: number;
 };
 
-export type ReadonlyOptions<T> = {
-	readonly [Property in keyof T]-?: T[Property];
-};
+export type SnapshotOptions = ScraperOptions &
+	ScreenshotOptions & {
+		logLevel?: 1 | 2 | 3;
+
+		onEvent?: (msg: string) => Promise<void> | void;
+		screenshotsOnly?: boolean;
+	};

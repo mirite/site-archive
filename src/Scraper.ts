@@ -59,6 +59,21 @@ export default class Scraper {
 		return bodyMatch?.at(0)?.replace("</html>", "") ?? "";
 	}
 
+	/** @param url */
+	private isAllowedType(url: string) {
+		if (!this.options.htmlOnly) {
+			return false;
+		}
+
+		const urlObj = new URL(url);
+		const { pathname } = urlObj;
+		const splitPath = pathname.split(".");
+		const extension = splitPath.at(-1);
+		return Boolean(
+			splitPath.length > 1 && !this.options.htmlTypes.includes(extension || ""),
+		);
+	}
+
 	/**
 	 * @param link
 	 * @param link.value
@@ -67,7 +82,7 @@ export default class Scraper {
 	 * @param searchedURL
 	 */
 	private processLink(
-		link: { value: string; url: string | undefined; uri: string | undefined },
+		link: { uri: string | undefined; url: string | undefined; value: string },
 		searchedURL: string,
 	) {
 		const { url: rawUrl } = link;
@@ -90,8 +105,8 @@ export default class Scraper {
 		}
 
 		const newItem: Page = {
-			url,
 			foundOn: searchedURL,
+			url,
 		};
 		this.pageList.set(url.toString(), newItem);
 	}
@@ -99,20 +114,5 @@ export default class Scraper {
 	/** @param url */
 	private shouldIgnore(url: string): boolean {
 		return this.isAllowedType(url);
-	}
-
-	/** @param url */
-	private isAllowedType(url: string) {
-		if (!this.options.htmlOnly) {
-			return false;
-		}
-
-		const urlObj = new URL(url);
-		const { pathname } = urlObj;
-		const splitPath = pathname.split(".");
-		const extension = splitPath.at(-1);
-		return Boolean(
-			splitPath.length > 1 && !this.options.htmlTypes.includes(extension || ""),
-		);
 	}
 }

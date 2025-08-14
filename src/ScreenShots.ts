@@ -1,5 +1,4 @@
 import Path from "path";
-
 import type { Browser, Page } from "puppeteer";
 import puppeteer from "puppeteer";
 
@@ -9,22 +8,6 @@ import { type ConcreteOptions, type ScreenshotOptions } from "./types/index.js";
 
 export default class ScreenShots {
 	private readonly requestedFiles: Map<string, string[]>;
-	/**
-	 * @param captureDir
-	 * @param settings
-	 */
-	public static async init(
-		captureDir: string,
-		settings: ConcreteOptions<ScreenshotOptions>,
-	) {
-		const browser = await puppeteer.launch({
-			headless: true,
-		});
-		const puppeteerPage = await browser.newPage();
-
-		return new ScreenShots(captureDir, browser, puppeteerPage, settings);
-	}
-
 	/**
 	 * @param captureDir
 	 * @param browser
@@ -54,6 +37,22 @@ export default class ScreenShots {
 		});
 	}
 
+	/**
+	 * @param captureDir
+	 * @param settings
+	 */
+	public static async init(
+		captureDir: string,
+		settings: ConcreteOptions<ScreenshotOptions>,
+	) {
+		const browser = await puppeteer.launch({
+			headless: true,
+		});
+		const puppeteerPage = await browser.newPage();
+
+		return new ScreenShots(captureDir, browser, puppeteerPage, settings);
+	}
+
 	/** @param url */
 	public async capture(url: string) {
 		try {
@@ -66,23 +65,12 @@ export default class ScreenShots {
 		}
 	}
 
-	public getRequestedFiles() {
-		return this.requestedFiles;
-	}
-
 	public async close() {
 		await this.browser.close();
 	}
 
-	/** @param url */
-	private async takeScreenShots(url: string) {
-		try {
-			for (const { width, height } of this.settings.screenshotSizes) {
-				await this.takeScreenshot(url, width, height);
-			}
-		} catch (e) {
-			logError(`taking screenshots of ${url}`, e);
-		}
+	public getRequestedFiles() {
+		return this.requestedFiles;
 	}
 
 	/** @param url */
@@ -94,20 +82,6 @@ export default class ScreenShots {
 		} catch (e) {
 			logError(`evaluating code on ${url}`, e);
 		}
-	}
-
-	/**
-	 * @param url
-	 * @param width
-	 * @param height
-	 */
-	private async takeScreenshot(url: string, width: number, height: number) {
-		const path = Path.join(
-			this.captureDir,
-			sanitizeFileName(url) + `${width}x${height}.png`,
-		);
-		await this.page.setViewport({ width, height });
-		await this.page.screenshot({ path, fullPage: true });
 	}
 
 	/** @param selectorsToHide */
@@ -140,5 +114,30 @@ export default class ScreenShots {
 				});
 			}),
 		);
+	}
+
+	/**
+	 * @param url
+	 * @param width
+	 * @param height
+	 */
+	private async takeScreenshot(url: string, width: number, height: number) {
+		const path = Path.join(
+			this.captureDir,
+			sanitizeFileName(url) + `${width}x${height}.png`,
+		);
+		await this.page.setViewport({ height, width });
+		await this.page.screenshot({ fullPage: true, path });
+	}
+
+	/** @param url */
+	private async takeScreenShots(url: string) {
+		try {
+			for (const { height, width } of this.settings.screenshotSizes) {
+				await this.takeScreenshot(url, width, height);
+			}
+		} catch (e) {
+			logError(`taking screenshots of ${url}`, e);
+		}
 	}
 }

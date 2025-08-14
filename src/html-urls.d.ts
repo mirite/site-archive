@@ -1,8 +1,8 @@
 declare module "html-urls" {
 	function a({ html: string, url: string }): Array<{
-		value: string;
-		url: string | undefined;
 		uri: string | undefined;
+		url: string | undefined;
+		value: string;
 	}>;
 
 	export = a;

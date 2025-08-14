@@ -1,12 +1,12 @@
 import Crawler from "./Crawler.js";
 
 export type {
+	ConcreteOptions,
 	Page,
 	PageList,
-	SnapshotOptions,
-	ScreenshotOptions,
 	ScraperOptions,
-	ConcreteOptions,
+	ScreenshotOptions,
 	ScreenshotSize,
+	SnapshotOptions,
 } from "./types/index.js";
 export default Crawler;

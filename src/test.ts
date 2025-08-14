@@ -1,30 +1,29 @@
 import path from "path";
 
-import { type SnapshotOptions } from "./types/index.js";
-
 import Crawler from "./index.js";
+import { type SnapshotOptions } from "./types/index.js";
 
 (async function () {
 	const entryPointRaw = process.argv[2];
 	const options: SnapshotOptions = {
-		logLevel: 2,
-		onEvent: console.log,
-		ignoreHead: true,
 		htmlOnly: true,
 		ignoreAnchors: true,
+		ignoreHead: true,
 		ignoreQueryString: true,
+		logLevel: 2,
+		onEvent: console.log,
+		redirect: "error",
 		screenshotSizes: [
 			{
-				width: 1920,
 				height: 1080,
+				width: 1920,
 			},
 			{
-				width: 320,
 				height: 800,
+				width: 320,
 			},
 		],
 		selectorsToRemove: [".rt-pop-announcement", "#header-container"],
-		redirect: "error",
 	};
 	const crawler = new Crawler(
 		entryPointRaw,

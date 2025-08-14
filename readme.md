@@ -5,8 +5,8 @@ This is a site crawler designed to track visual and content differences between 
 ## Example usage:
 
 ```javascript
-import Crawler from "site-archive";
 import path from "path";
+import Crawler from "site-archive";
 
 const entryPointRaw = process.argv[2];
 const crawler = new Crawler(

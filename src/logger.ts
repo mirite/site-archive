@@ -2,11 +2,6 @@ type LogLevel = 1 | 2 | 3;
 let logLevel: LogLevel = 1;
 let logFunction = console.log;
 
-/** @param func */
-export function setLogFunction(func: (str: string) => unknown) {
-	logFunction = func;
-}
-
 /**
  * @param message
  * @param level
@@ -17,11 +12,6 @@ export function log(message: string, level = 1) {
 	}
 }
 
-/** @param level */
-export function setLogLevel(level: LogLevel) {
-	logLevel = level;
-}
-
 /**
  * @param context
  * @param error
@@ -29,6 +19,16 @@ export function setLogLevel(level: LogLevel) {
  */
 export function logError(context: string, error: unknown, level: LogLevel = 3) {
 	log(`Error ${context}: ${getErrorMessage(error)}`, level);
+}
+
+/** @param func */
+export function setLogFunction(func: (str: string) => unknown) {
+	logFunction = func;
+}
+
+/** @param level */
+export function setLogLevel(level: LogLevel) {
+	logLevel = level;
 }
 
 /** @param error */

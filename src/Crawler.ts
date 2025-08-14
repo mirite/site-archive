@@ -14,11 +14,11 @@ import type {
 } from "./types/index.js";
 
 export default class Crawler {
-	private readonly pageList: PageList;
-	private readonly entryPoint: URL;
 	private readonly captureDir: string;
-
+	private readonly entryPoint: URL;
 	private readonly options: ConcreteOptions<SnapshotOptions>;
+
+	private readonly pageList: PageList;
 
 	/**
 	 * @param rawEntryPoint
@@ -45,7 +45,7 @@ export default class Crawler {
 	}
 
 	public async crawl() {
-		const { entryPoint, pageList, captureDir } = this;
+		const { captureDir, entryPoint, pageList } = this;
 
 		const scraper = new Scraper(pageList, entryPoint.host, this.options);
 		await createDir(captureDir);
@@ -75,11 +75,18 @@ export default class Crawler {
 		return this.pageList;
 	}
 
-	private writeList() {
-		fs.writeFileSync(
-			Path.resolve(this.captureDir, "crawl.json"),
-			JSON.stringify(Array.from(this.pageList).map((a) => a[0])),
-		);
+	private createSeed(): Page {
+		return {
+			foundOn: "Entry Point",
+			url: this.entryPoint,
+		};
+	}
+
+	/** @param options */
+	private mergeOptions(
+		options: SnapshotOptions,
+	): ConcreteOptions<SnapshotOptions> {
+		return { ...defaultOptions, ...options };
 	}
 
 	/** @param requestedFiles */
@@ -90,11 +97,11 @@ export default class Crawler {
 		);
 	}
 
-	private createSeed(): Page {
-		return {
-			url: this.entryPoint,
-			foundOn: "Entry Point",
-		};
+	private writeList() {
+		fs.writeFileSync(
+			Path.resolve(this.captureDir, "crawl.json"),
+			JSON.stringify(Array.from(this.pageList).map((a) => a[0])),
+		);
 	}
 
 	/** @param page */
@@ -103,12 +110,5 @@ export default class Crawler {
 			Path.resolve(this.captureDir, sanitizeFileName(page.url.href)),
 			JSON.stringify(page),
 		);
-	}
-
-	/** @param options */
-	private mergeOptions(
-		options: SnapshotOptions,
-	): ConcreteOptions<SnapshotOptions> {
-		return { ...defaultOptions, ...options };
 	}
 }
