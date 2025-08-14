@@ -3,15 +3,19 @@ import path from "path";
 import Crawler from "./index.js";
 import { type SnapshotOptions } from "./types/index.js";
 
-(async function () {
+void (async function () {
 	const entryPointRaw = process.argv[2];
+	if (!entryPointRaw) {
+		console.error("No path provided");
+		process.exit(1);
+	}
 	const options: SnapshotOptions = {
 		htmlOnly: true,
 		ignoreAnchors: true,
 		ignoreHead: true,
 		ignoreQueryString: true,
 		logLevel: 2,
-		onEvent: console.log,
+		onEvent: console.info,
 		redirect: "error",
 		screenshotSizes: [
 			{

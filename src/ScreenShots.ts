@@ -6,6 +6,7 @@ import { sanitizeFileName } from "./helpers/files.js";
 import { log, logError } from "./logger.js";
 import { type ConcreteOptions, type ScreenshotOptions } from "./types/index.js";
 
+/** Handles the screen shot capture */
 export default class ScreenShots {
 	private readonly requestedFiles: Map<string, string[]>;
 	/**
@@ -65,6 +66,7 @@ export default class ScreenShots {
 		}
 	}
 
+	/** Close the browser. */
 	public async close() {
 		await this.browser.close();
 	}
@@ -125,7 +127,7 @@ export default class ScreenShots {
 		const path = Path.join(
 			this.captureDir,
 			sanitizeFileName(url) + `${width}x${height}.png`,
-		);
+		) as `${string}.png`;
 		await this.page.setViewport({ height, width });
 		await this.page.screenshot({ fullPage: true, path });
 	}

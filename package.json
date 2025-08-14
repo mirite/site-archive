@@ -29,6 +29,7 @@
 		"build": "yarn run clean && yarn run build:esm && yarn run build:cjs",
 		"build:cjs": "tsc -p ./configs/tsconfig.cjs.json",
 		"build:esm": "tsc -p ./configs/tsconfig.esm.json && move-file dist/esm/index.js dist/esm/index.mjs",
+		"check": "tsc --noEmit",
 		"clean": "del-cli ./dist",
 		"format": "prettier . --write --cache",
 		"lint": "eslint --fix --cache",
