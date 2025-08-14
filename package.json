@@ -1,6 +1,6 @@
 {
 	"name": "site-archive",
-	"version": "2.2.3",
+	"version": "2.2.4",
 	"description": "Website capture tool written in TS using Puppeteer",
 	"repository": {
 		"type": "git",

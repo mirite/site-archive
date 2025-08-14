@@ -5,6 +5,7 @@
 		"verbatimModuleSyntax": false,
 		"moduleResolution": "Node",
 		"outDir": "../dist/cjs",
-		"declarationDir": "../dist/cjs/types"
+		"declarationDir": "../dist/cjs/types",
+		"esModuleInterop": true
 	}
 }
